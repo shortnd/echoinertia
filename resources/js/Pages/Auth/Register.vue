@@ -107,8 +107,8 @@ export default {
     submit() {
       axios
         .post(route("register"), this.form)
-        .then(res => this.$inertia.visit(route("login")));
-      // this.$inertia.post(route('register'), this.form).then((res) => console.log(res))
+        .then(res => this.$inertia.visit(res.request.responseURL))
+        .catch((err) => console.log(err));
     }
   }
 };
