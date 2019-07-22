@@ -49,16 +49,17 @@
 <script>
 export default {
     methods: {
-        guest: function () {
-            return this.$page.auth.user.length === 0;
-        },
         register: function () {
-            return this.$page.has.register.length
-        },
-        user: function () {
-            return this.$page.auth.user
+            return this.$page.has.register;
         },
     },
-    computed: {},
+    computed: {
+        guest: function () {
+            return this.$page.auth.user === null;
+        },
+        user: function () {
+            return this.$page.auth.user;
+        }
+    }
 }
 </script>

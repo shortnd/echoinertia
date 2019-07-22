@@ -1,4 +1,4 @@
-(window["webpackJsonp"] = window["webpackJsonp"] || []).push([[0],{
+(window["webpackJsonp"] = window["webpackJsonp"] || []).push([[5],{
 
 /***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/Shared/Layout.vue?vue&type=script&lang=js&":
 /*!*************************************************************************************************************************************************************!*\
@@ -9,6 +9,7 @@
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var vue_function_api__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue-function-api */ "./node_modules/vue-function-api/dist/vue-function-api.module.js");
 //
 //
 //
@@ -57,15 +58,26 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+
 /* harmony default export */ __webpack_exports__["default"] = ({
-  methods: {
-    register: function register() {
-      return this.$page.has.register;
-    }
+  setup: function setup() {
+    var _this = this;
+
+    // const guest = () => this.$page.auth.user.length === 0;
+    var guest = Object(vue_function_api__WEBPACK_IMPORTED_MODULE_0__["computed"])(function () {
+      return _this.$page.auth.user.length === 0;
+    }).bind(this);
+    return {
+      guest: guest
+    };
   },
+  methods: {},
   computed: {
-    guest: function guest() {
-      return this.$page.auth.user === null;
+    // guest: function () {
+    //     return this.$page.auth.user.length ===  0;
+    // },
+    register: function register() {
+      return this.$page.has.register.length;
     },
     user: function user() {
       return this.$page.auth.user;

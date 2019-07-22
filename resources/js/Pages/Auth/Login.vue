@@ -53,6 +53,7 @@
 
 <script>
 import Layout from '@/Shared/Layout';
+import axios from 'axios';
 export default {
     data() {
         return {
@@ -72,11 +73,9 @@ export default {
             return this.$page.has.password_request
         },
         submit () {
-            this.$inertia.post(route('login'), {
-                email: this.form.email,
-                password: this.form.password,
-                remember: this.form.remember
-            })
+            axios.post(route('login'), this.form).then((res) => {
+                this.$inertia.visit(res.request.responseURL)
+            }).catch((err) => console.log(err))
         }
     }
 }
