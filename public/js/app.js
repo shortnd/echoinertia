@@ -43,7 +43,7 @@
 /******/
 /******/ 	// script path function
 /******/ 	function jsonpScriptSrc(chunkId) {
-/******/ 		return __webpack_require__.p + "js/" + ({}[chunkId]||chunkId) + ".js?id=" + {"0":"adf82da851155737d13a","1":"127993e196b01cd446aa","2":"bbb86239d309b2a447c4","3":"21fd4443274a0c5c4505","4":"0258d1408095ecf1cf21"}[chunkId] + ""
+/******/ 		return __webpack_require__.p + "js/" + ({}[chunkId]||chunkId) + ".js?id=" + {"0":"16e829a9f8b8e06089be","1":"ba0cdde6aa05d20f75fd","2":"522a63411bc7a1ca5914","3":"21fd4443274a0c5c4505","4":"343008f9dc99eefc9b6f","5":"80a3fc84807174767d7f","6":"1fcf775536a6276a7935"}[chunkId] + ""
 /******/ 	}
 /******/
 /******/ 	// The require function
@@ -49136,15 +49136,35 @@ var map = {
 		0,
 		3
 	],
+	"./Posts/Create": [
+		"./resources/js/Pages/Posts/Create.vue",
+		0,
+		4
+	],
+	"./Posts/Create.vue": [
+		"./resources/js/Pages/Posts/Create.vue",
+		0,
+		4
+	],
+	"./Posts/Index": [
+		"./resources/js/Pages/Posts/Index.vue",
+		0,
+		5
+	],
+	"./Posts/Index.vue": [
+		"./resources/js/Pages/Posts/Index.vue",
+		0,
+		5
+	],
 	"./Welcome": [
 		"./resources/js/Pages/Welcome.vue",
 		0,
-		4
+		6
 	],
 	"./Welcome.vue": [
 		"./resources/js/Pages/Welcome.vue",
 		0,
-		4
+		6
 	]
 };
 function webpackAsyncContext(req) {

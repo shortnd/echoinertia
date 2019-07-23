@@ -88,28 +88,29 @@
 
 <script>
 import Layout from "@/Shared/Layout";
-import axios from "axios";
+import { value } from "vue-function-api";
 export default {
-  data() {
+  setup(props) {
+    const form = value({
+      name: null,
+      email: null,
+      password: null,
+      "password-confirmation": null
+    });
+    const submit = function () {
+    this.$inertia
+        .post(route("register").url(), this.form)
+        .then((res) => this.$inertia.visit(res.request.responseURL));
+    };
+    const errors = value({});
     return {
-      form: {
-        name: null,
-        email: null,
-        password: null,
-        "password-confirmation": null
-      }
+      form,
+      submit,
+      errors,
     };
   },
   components: {
     Layout
   },
-  methods: {
-    submit() {
-      axios
-        .post(route("register"), this.form)
-        .then(res => this.$inertia.visit(res.request.responseURL))
-        .catch((err) => console.log(err));
-    }
-  }
 };
 </script>

@@ -9,6 +9,7 @@
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var vue_function_api__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue-function-api */ "./node_modules/vue-function-api/dist/vue-function-api.module.js");
 //
 //
 //
@@ -57,19 +58,27 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+
 /* harmony default export */ __webpack_exports__["default"] = ({
-  methods: {
-    register: function register() {
-      return this.$page.has.register;
-    }
-  },
-  computed: {
-    guest: function guest() {
-      return this.$page.auth.user === null;
-    },
-    user: function user() {
+  setup: function setup(props) {
+    var guest = Object(vue_function_api__WEBPACK_IMPORTED_MODULE_0__["computed"])(function () {
+      return !this.$page.auth.user;
+    });
+    var user = Object(vue_function_api__WEBPACK_IMPORTED_MODULE_0__["computed"])(function () {
       return this.$page.auth.user;
-    }
+    });
+    var register = Object(vue_function_api__WEBPACK_IMPORTED_MODULE_0__["computed"])(function () {
+      return this.$page.has.register;
+    });
+    return {
+      guest: guest,
+      user: user,
+      register: register
+    };
   }
 });
 
@@ -125,7 +134,32 @@ var render = function() {
                 attrs: { id: "navbarSupportedContent" }
               },
               [
-                _c("ul", { staticClass: "navbar-nav mr-auto" }),
+                _c(
+                  "ul",
+                  { staticClass: "navbar-nav mr-auto" },
+                  [
+                    !_vm.guest
+                      ? [
+                          _c(
+                            "li",
+                            { staticClass: "nav-item" },
+                            [
+                              _c(
+                                "inertia-link",
+                                {
+                                  staticClass: "nav-link",
+                                  attrs: { href: _vm.route("posts.create") }
+                                },
+                                [_vm._v("Add Post")]
+                              )
+                            ],
+                            1
+                          )
+                        ]
+                      : _vm._e()
+                  ],
+                  2
+                ),
                 _vm._v(" "),
                 _c(
                   "ul",

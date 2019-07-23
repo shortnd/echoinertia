@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Support\MessageBag;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -39,7 +40,19 @@ class AppServiceProvider extends ServiceProvider
             }
         });
 
-        Inertia::share('has.register', Route::has('register'));
-        Inertia::share('has.password_request', Route::has('password-request'));
+        Inertia::share('has.register', function () {
+            if (! Route::has('register')) {
+                return false;
+            }
+            return true;
+        });
+
+        Inertia::share('has.password_request', function () {
+            if (! Route::has('password.request')) {
+                return false;
+            }
+            return true;
+        });
+
     }
 }

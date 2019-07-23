@@ -10,8 +10,7 @@
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Shared_Layout__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/Shared/Layout */ "./resources/js/Shared/Layout.vue");
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var vue_function_api__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vue-function-api */ "./node_modules/vue-function-api/dist/vue-function-api.module.js");
 //
 //
 //
@@ -103,27 +102,31 @@ __webpack_require__.r(__webpack_exports__);
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  data: function data() {
+  setup: function setup(props) {
+    var form = Object(vue_function_api__WEBPACK_IMPORTED_MODULE_1__["value"])({
+      name: null,
+      email: null,
+      password: null,
+      "password-confirmation": null
+    });
+
+    var submit = function submit() {
+      var _this = this;
+
+      this.$inertia.post(route("register").url(), this.form).then(function (res) {
+        return _this.$inertia.visit(res.request.responseURL);
+      });
+    };
+
+    var errors = Object(vue_function_api__WEBPACK_IMPORTED_MODULE_1__["value"])({});
     return {
-      form: {
-        name: null,
-        email: null,
-        password: null,
-        "password-confirmation": null
-      }
+      form: form,
+      submit: submit,
+      errors: errors
     };
   },
   components: {
     Layout: _Shared_Layout__WEBPACK_IMPORTED_MODULE_0__["default"]
-  },
-  methods: {
-    submit: function submit() {
-      var _this = this;
-
-      axios__WEBPACK_IMPORTED_MODULE_1___default.a.post(route("register"), this.form).then(function (res) {
-        return _this.$inertia.visit(route("login"));
-      }); // this.$inertia.post(route('register'), this.form).then((res) => console.log(res))
-    }
   }
 });
 

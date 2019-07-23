@@ -12,7 +12,11 @@
               <div class="collapse navbar-collapse" id="navbarSupportedContent">
                   <!-- Left Side of Nav -->
                   <ul class="navbar-nav mr-auto">
-
+                      <template v-if="!guest">
+                          <li class="nav-item">
+                              <inertia-link class="nav-link" :href="route('posts.create')">Add Post</inertia-link>
+                          </li>
+                      </template>
                   </ul>
 
                   <!-- Right side of nav -->
@@ -47,19 +51,21 @@
 </template>
 
 <script>
+import { computed } from "vue-function-api";
 export default {
-    methods: {
-        register: function () {
-            return this.$page.has.register;
-        },
-    },
-    computed: {
-        guest: function () {
-            return this.$page.auth.user === null;
-        },
-        user: function () {
-            return this.$page.auth.user;
+    setup(props) {
+        const guest = computed(function () { return !this.$page.auth.user });
+        const user = computed(function () {
+            return this.$page.auth.user
+        });
+        const register = computed(function () {
+            return this.$page.has.register
+        });
+        return {
+            guest,
+            user,
+            register
         }
-    }
+    },
 }
 </script>

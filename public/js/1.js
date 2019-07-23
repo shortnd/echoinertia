@@ -10,8 +10,30 @@
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Shared_Layout__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/Shared/Layout */ "./resources/js/Shared/Layout.vue");
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var vue_function_api__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vue-function-api */ "./node_modules/vue-function-api/dist/vue-function-api.module.js");
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -68,32 +90,33 @@ __webpack_require__.r(__webpack_exports__);
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  data: function data() {
-    return {
-      form: {
-        email: null,
-        password: null,
-        remember: false
-      }
-    };
-  },
-  remember: ['form'],
-  components: {
-    Layout: _Shared_Layout__WEBPACK_IMPORTED_MODULE_0__["default"]
-  },
-  methods: {
-    passwordRequest: function passwordRequest() {
+  setup: function setup(props) {
+    var form = Object(vue_function_api__WEBPACK_IMPORTED_MODULE_1__["value"])({
+      email: null,
+      password: null,
+      remember: false
+    });
+    var passwordRequest = Object(vue_function_api__WEBPACK_IMPORTED_MODULE_1__["computed"])(function () {
       return this.$page.has.password_request;
-    },
-    submit: function submit() {
+    });
+
+    var submit = function submit() {
       var _this = this;
 
-      axios__WEBPACK_IMPORTED_MODULE_1___default.a.post(route('login'), this.form).then(function (res) {
-        _this.$inertia.visit(res.request.responseURL);
-      })["catch"](function (err) {
-        return console.log(err);
+      this.$inertia.post(route("login").url(), this.form).then(function (res) {
+        return _this.$inertia.visit(res.request.responseURL);
       });
-    }
+    };
+
+    return {
+      form: form,
+      passwordRequest: passwordRequest,
+      submit: submit
+    };
+  },
+  remember: ["form"],
+  components: {
+    Layout: _Shared_Layout__WEBPACK_IMPORTED_MODULE_0__["default"]
   }
 });
 
