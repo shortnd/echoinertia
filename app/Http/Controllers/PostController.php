@@ -40,11 +40,17 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
-        auth()->user()->createPost($this->validate($request, [
+        $post = new Post;
+        $this->validate($request, [
             'title' => 'required|min:3',
             'url' => 'required|min:10',
-            'body' => 'required|min:3|max:255'
-        ]));
+            'description' => 'required|min:3|max:255'
+        ]);
+        $post->title = $request->title;
+        $post->url = $request->url;
+        $post->description = $request->description;
+        $post->user_id = auth()->user()->id;
+        $post->save();
 
         return redirect(route('posts.index'));
     }

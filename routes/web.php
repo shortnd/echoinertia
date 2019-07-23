@@ -24,3 +24,5 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 
 Route::resource('posts', 'PostController');
+
+// TODO: Add PATCH endpoints for both upvote and downvotes

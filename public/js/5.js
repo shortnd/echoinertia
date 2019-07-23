@@ -27,6 +27,32 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -34,8 +60,26 @@ __webpack_require__.r(__webpack_exports__);
     var posts = Object(vue_function_api__WEBPACK_IMPORTED_MODULE_0__["computed"])(function () {
       return this.$page.posts;
     });
+
+    var upvote = function upvote(post) {
+      var _this = this;
+
+      this.$inertia.patch(route("post.upvote").url(), post.id).then(function (res) {
+        return _this.$inertia.reload();
+      });
+    };
+
+    var downvote = function downvote(post) {
+      var _this2 = this;
+
+      this.$inertia.patch(route("post.downvote").url(), post.id).then(function (res) {
+        return _this2.$inertia.reload();
+      });
+    };
+
     return {
-      posts: posts
+      posts: posts,
+      upvote: upvote
     };
   },
   components: {
@@ -69,7 +113,92 @@ var render = function() {
         _vm._v(" "),
         _vm.posts.length
           ? _vm._l(_vm.posts, function(post) {
-              return _c("div", { key: post.id })
+              return _c("div", { key: post.id }, [
+                _c("div", { staticClass: "card" }, [
+                  _c("div", { staticClass: "card-header" }, [
+                    _vm._v(
+                      "\n                        " + _vm._s(post.title) + " - "
+                    ),
+                    _c("a", { attrs: { href: post.url, target: "_blank" } }, [
+                      _vm._v(_vm._s(post.url))
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "card-body" }, [
+                    _vm._v(
+                      "\n                        " +
+                        _vm._s(post.description) +
+                        "\n                    "
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "card-footer" }, [
+                    _c("div", { staticClass: "container" }, [
+                      _c("div", { staticClass: "row" }, [
+                        _c("div", { staticClass: "col-sm-6" }, [
+                          _c("span", [
+                            _vm._v(
+                              "Upvote(s): " +
+                                _vm._s(post.up_votes > 0 ? post.up_votes : 0)
+                            )
+                          ]),
+                          _vm._v(" "),
+                          _c(
+                            "form",
+                            {
+                              staticClass: "d-inline-block",
+                              attrs: { method: "POST" },
+                              on: {
+                                submit: function($event) {
+                                  $event.preventDefault()
+                                  return _vm.upvote(post)
+                                }
+                              }
+                            },
+                            [
+                              _c("input", {
+                                attrs: {
+                                  type: "checkbox",
+                                  id: "",
+                                  "aria-label": "Upvote Post"
+                                }
+                              })
+                            ]
+                          )
+                        ]),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "col-sm-6" }, [
+                          _c("span", [
+                            _vm._v(
+                              "Down vote(s): " +
+                                _vm._s(
+                                  post.down_votes > 0 ? post.down_votes : 0
+                                )
+                            )
+                          ]),
+                          _vm._v(" "),
+                          _c(
+                            "form",
+                            {
+                              staticClass: "d-inline-block",
+                              attrs: { method: "POST" }
+                            },
+                            [
+                              _c("input", {
+                                attrs: {
+                                  type: "checkbox",
+                                  id: "",
+                                  "aria-label": "Downvote Post"
+                                }
+                              })
+                            ]
+                          )
+                        ])
+                      ])
+                    ])
+                  ])
+                ])
+              ])
             })
           : [
               _c("h3", { staticClass: "text-center" }, [
