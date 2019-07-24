@@ -7,6 +7,13 @@
             <div class="card-header">Register</div>
 
             <div class="card-body">
+                <div class="alert alert-danger" v-if="errors">
+                    <ul>
+                        <li v-for="(error, index) in errors" :key="index">
+                            {{ error[0] }}
+                        </li>
+                    </ul>
+                </div>
               <form method="POST" @submit.prevent="submit">
                 <div class="form-group row">
                   <label for="name" class="col-md-4 col-form-label text-md-right">Name</label>
@@ -89,6 +96,7 @@
 <script>
 import Layout from "@/Shared/Layout";
 import { value } from "vue-function-api";
+import axios from "axios";
 export default {
   setup(props) {
     const form = value({
@@ -98,11 +106,11 @@ export default {
       "password-confirmation": null
     });
     const submit = function () {
-    this.$inertia
-        .post(route("register").url(), this.form)
-        .then((res) => this.$inertia.visit(res.request.responseURL));
+        axios.post(route("register").url(), this.form)
+            .then(({ request }) => this.$inertia.visit(request.responseURL))
+            .catch(({ response }) => this.errors = response.data.errors)
     };
-    const errors = value({});
+    const errors = value(null);
     return {
       form,
       submit,

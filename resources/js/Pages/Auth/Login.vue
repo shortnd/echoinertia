@@ -7,6 +7,11 @@
             <div class="card-header">Login</div>
 
             <div class="card-body">
+              <div class="alert alert-danger" v-if="errors">
+                <ul>
+                  <li v-for="(error, index) in errors" :key="index">{{ error[0] }}</li>
+                </ul>
+              </div>
               <form @submit.prevent="submit" method="POST">
                 <div class="form-group row">
                   <label for="email" class="col-md-4 col-form-label text-md-right">E-Mail Address</label>
@@ -77,32 +82,37 @@
 <script>
 import Layout from "@/Shared/Layout";
 import { value, computed } from "vue-function-api";
+import axios from "axios";
 export default {
-    setup(props) {
-        const form = value({
-            email: null,
-            password: null,
-            remember: false,
-        });
+  setup(props) {
+    const form = value({
+      email: null,
+      password: null,
+      remember: false
+    });
+    const errors = value(null);
 
-        const passwordRequest = computed(function () {
-            return this.$page.has.password_request
-        });
+    const passwordRequest = computed(function() {
+      return this.$page.has.password_request;
+    });
 
-        const submit = function () {
-            this.$inertia.post(route("login").url(), this.form)
-                .then(res => this.$inertia.visit(res.request.responseURL))
-        }
+    const submit = function() {
+      axios
+        .post(route("login").url(), this.form)
+        .then(({ request }) => this.$inertia.visit(request.responseURL))
+        .catch(({ response }) => (this.errors = response.data.errors));
+    };
 
-        return {
-            form,
-            passwordRequest,
-            submit,
-        }
-    },
+    return {
+      form,
+      passwordRequest,
+      submit,
+      errors
+    };
+  },
   remember: ["form"],
   components: {
     Layout
-  },
+  }
 };
 </script>

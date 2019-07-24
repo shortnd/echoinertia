@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Post;
 use Inertia\Inertia;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class PostController extends Controller
 {
@@ -40,17 +41,11 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
-        $post = new Post;
-        $this->validate($request, [
+        Auth::user()->createPost($this->validate($request, [
             'title' => 'required|min:3',
-            'url' => 'required|min:10',
-            'description' => 'required|min:3|max:255'
-        ]);
-        $post->title = $request->title;
-        $post->url = $request->url;
-        $post->description = $request->description;
-        $post->user_id = auth()->user()->id;
-        $post->save();
+            'url' => 'required|min:3',
+            'description' => 'required|min:3'
+        ]));
 
         return redirect(route('posts.index'));
     }

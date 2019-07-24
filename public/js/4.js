@@ -11,6 +11,8 @@
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Shared_Layout__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/Shared/Layout */ "./resources/js/Shared/Layout.vue");
 /* harmony import */ var vue_function_api__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vue-function-api */ "./node_modules/vue-function-api/dist/vue-function-api.module.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_2__);
 //
 //
 //
@@ -76,6 +78,15 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -85,13 +96,17 @@ __webpack_require__.r(__webpack_exports__);
       url: null,
       description: null
     });
-    var errors = Object(vue_function_api__WEBPACK_IMPORTED_MODULE_1__["value"])({});
+    var errors = Object(vue_function_api__WEBPACK_IMPORTED_MODULE_1__["value"])(null);
 
     var addPost = function addPost() {
       var _this = this;
 
-      this.$inertia.post(route("posts.store").url(), this.form).then(function (res) {
-        return _this.$inertia.visit(res.request.responseURL);
+      axios__WEBPACK_IMPORTED_MODULE_2___default.a.post(route("posts.store").url(), this.form).then(function (_ref) {
+        var request = _ref.request;
+        return _this.$inertia.visit(request.responseURL);
+      })["catch"](function (_ref2) {
+        var response = _ref2.response;
+        return _this.errors = response.data.errors;
       });
     };
 
@@ -132,6 +147,24 @@ var render = function() {
         _c("div", { staticClass: "card-header" }, [_vm._v("Create Post")]),
         _vm._v(" "),
         _c("div", { staticClass: "card-body" }, [
+          _vm.errors
+            ? _c("div", { staticClass: "alert alert-danger" }, [
+                _c(
+                  "ul",
+                  _vm._l(_vm.errors, function(error, index) {
+                    return _c("li", { key: index }, [
+                      _vm._v(
+                        "\n                    " +
+                          _vm._s(error[0]) +
+                          "\n                "
+                      )
+                    ])
+                  }),
+                  0
+                )
+              ])
+            : _vm._e(),
+          _vm._v(" "),
           _c(
             "form",
             {

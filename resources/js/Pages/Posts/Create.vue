@@ -5,6 +5,14 @@
         <div class="card-header">Create Post</div>
 
         <div class="card-body">
+          <div class="alert alert-danger" v-if="errors">
+              <ul>
+                  <li v-for="(error, index) in errors" :key="index">
+                      {{ error[0] }}
+                  </li>
+              </ul>
+          </div>
+
           <form @submit.prevent="addPost" method="POST">
             <div class="row form-group">
               <label for="title" class="col-md-4 col-form-label text-md-right">Title</label>
@@ -66,6 +74,7 @@
 <script>
 import Layout from "@/Shared/Layout";
 import { value } from "vue-function-api";
+import axios from "axios";
 export default {
   setup() {
     const form = value({
@@ -74,12 +83,12 @@ export default {
       description: null
     });
 
-    const errors = value({});
+    const errors = value(null);
 
     const addPost = function() {
-      this.$inertia
-        .post(route("posts.store").url(), this.form)
-        .then(res => this.$inertia.visit(res.request.responseURL));
+        axios.post(route("posts.store").url(), this.form)
+            .then(({ request }) => this.$inertia.visit(request.responseURL))
+            .catch(({ response }) => this.errors = response.data.errors)
     };
 
     return {

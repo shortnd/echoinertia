@@ -4,7 +4,7 @@
             <h2 class="text-center">All Posts</h2>
             <template v-if="posts.length">
                 <div v-for="post in posts" :key="post.id">
-                    <div class="card">
+                    <div class="card mb-3">
                         <div class="card-header">
                             {{ post.title }} - <a :href="post.url" target="_blank">{{ post.url }}</a>
                         </div>

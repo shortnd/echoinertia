@@ -114,7 +114,7 @@ var render = function() {
         _vm.posts.length
           ? _vm._l(_vm.posts, function(post) {
               return _c("div", { key: post.id }, [
-                _c("div", { staticClass: "card" }, [
+                _c("div", { staticClass: "card mb-3" }, [
                   _c("div", { staticClass: "card-header" }, [
                     _vm._v(
                       "\n                        " + _vm._s(post.title) + " - "
